@@ -13,7 +13,7 @@ let fire = true;
 //Creates player 
 let goodGuy = new Image();
 goodGuy.src = "img/Protaginist Ship Frames.png";
-let player = {x:800, y:310, yVU:0, yVD:0, w:70, h:20, yF:0};
+let player = {x:800, y:310, yVU:0, yVD:0, w:80, h:30, yF:0};
 
 //Creates badGuy
 let badGuy = new Image();
@@ -95,8 +95,8 @@ function animate(){
             asteroids[i].x = 1300;
             asteroids[i].y = Math.floor(Math.random() * 630);
          }
-         for(d = 0; d < 67; d++){
-            if(dist(player.x + d, player.y, asteroids[i].x , asteroids[i].y) <= 10){
+         for(d = 0; d < 80; d++){
+            if(dist(player.x + d, player.y + 15, asteroids[i].x , asteroids[i].y) <= 15){
                 playerHP -= 10;
                 asteroids[i].x = 1300;
                 asteroids[i].y = Math.floor(Math.random() * 630);
@@ -177,24 +177,25 @@ function animate(){
     }
     ctx.drawImage(missile, 0, bullet.yF, 986, 100, bullet.x, bullet.y, bullet.w, bullet.h);
     if(bullet.w == 60){
-        bullet.x += 10;
+        bullet.x += 7;
         fire = false;
     }
     if(fire == false){
         if(bullet.y > player.y ){
-            bullet.y -= 2;
+            bullet.y -= 3;
         }
         if(bullet.y < player.y ){
-            bullet.y += 2;
+            bullet.y += 3;
         }
         if(bullet.x >= 2000){
             bullet.x = villain.x + 400;
+            bullet.y = villain.y + 170
             fire = true;
         }
         
     }
-    for(d = 0; d < 67; d++){
-        if(dist(player.x + d, player.y, bullet.x + d, bullet.y) <= 10){
+    for(d = 0; d < 80; d++){
+        if(dist(player.x + d, player.y + 15, bullet.x + d, bullet.y) <= 15){
             playerHP -= 50;
             bullet.x = 1300;
         }
@@ -221,8 +222,8 @@ function animate(){
     if (villainHP <= 0){
         rect(0, 0, 1300, 520, "black");
         text("Objective complete, refresh to play again.", 425, 250, "green" );
-        cancelAnimationFrame(raf)
+        cancelAnimationFrame(raf);
     }
 }
 
-animate()
+animate();
